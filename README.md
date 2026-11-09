@@ -67,13 +67,13 @@ Developed PowerShell scripts to automate basic system checks and collect diagnos
 | `AD-User-Audit.ps1` | Audits Active Directory user account status. |
 | `Helpdesk-Diagnostic.ps1` | Combines system diagnostic checks into a single report. |
 
-Diagnostic reports are exported in CSV or TXT format for easier review and record keeping.
+Diagnostic reports are exported in CSV format for easier review and record keeping.
 
 ## 4. Tools and Technologies
 
 - VMware Workstation
 - Windows Server 2022
-- Windows 11
+- Windows 10
 - Active Directory Domain Services (AD DS)
 - DNS Server
 - Group Policy Management
