@@ -1,95 +1,93 @@
-# IT Helpdesk Home Lab
+# IT Support Home Lab
 
-## 1. Giới thiệu dự án
+## 1. Project Overview
 
-Dự án xây dựng môi trường IT Helpdesk mô phỏng hệ thống mạng doanh nghiệp nhỏ bằng VMware Workstation, Windows Server 2022 và Windows 11.
+This project involves building a simulated small-business IT environment using VMware Workstation, Windows Server 2022, and Windows 10.
 
-Mục tiêu là thực hành các công việc cơ bản của nhân viên IT Support / Helpdesk như quản lý tài khoản người dùng, phân quyền truy cập, cấu hình mạng, xử lý sự cố và tự động hóa kiểm tra hệ thống bằng PowerShell.
+The main objective is to gain hands-on experience with common IT Support and Helpdesk tasks, including user account management, access control, network configuration, troubleshooting, and system diagnostics automation using PowerShell.
 
-## 2. Mô hình hệ thống
+## 2. Lab Environment
 
-| Máy ảo | Hệ điều hành | Chức năng | IP nội bộ |
+| Virtual Machine | Operating System | Role | Internal IP |
 |---|---|---|---|
 | DC01 | Windows Server 2022 | Domain Controller, DNS, File Server, RRAS | 192.168.100.10 |
-| CLIENT01 | Windows 11 | Máy tính người dùng, tham gia Domain | 192.168.100.20 |
+| CLIENT01 | Windows 11 | Domain-joined client workstation | 192.168.100.20 |
 
-**Thông tin mạng:**
+**Network Configuration:**
 - Domain: `company.local`
-- VMware VMnet1: Host-only – mạng nội bộ.
-- VMware VMnet8: NAT – kết nối Internet cho DC01.
-- DC01 sử dụng RRAS NAT để chia sẻ kết nối Internet cho CLIENT01.
-- CLIENT01 sử dụng DC01 làm DNS Server và Default Gateway.
+- VMware VMnet1: Host-only network for internal communication.
+- VMware VMnet8: NAT network providing Internet access to DC01.
+- DC01 uses RRAS NAT to share its Internet connection with CLIENT01.
+- CLIENT01 uses DC01 as its DNS server and default gateway.
 
-## 3. Nội dung thực hành
+## 3. Hands-on Labs
 
 ### 3.1. Active Directory
-- Cài đặt và cấu hình Active Directory Domain Services.
-- Tạo Domain `company.local`.
-- Tạo và quản lý User, Group, Organizational Unit (OU).
-- Join máy Windows 11 vào Domain.
-- Kiểm tra đăng nhập bằng tài khoản Domain.
+- Installed and configured Active Directory Domain Services (AD DS).
+- Created the `company.local` domain.
+- Created and managed user accounts, security groups, and Organizational Units (OUs).
+- Joined a Windows 11 workstation to the domain.
+- Verified domain authentication using domain user accounts.
 
-### 3.2. File Sharing và NTFS Permissions
-- Tạo thư mục chia sẻ theo phòng ban.
-- Cấu hình SMB Sharing và NTFS Permissions.
-- Phân quyền truy cập thông qua Security Group.
-- Kiểm tra quyền truy cập bằng các tài khoản khác nhau.
-- Xử lý sự cố không truy cập được thư mục chia sẻ.
+### 3.2. File Sharing and NTFS Permissions
+- Created shared folders for different departments.
+- Configured SMB sharing and NTFS permissions.
+- Managed folder access through security groups.
+- Tested access permissions using different user accounts.
+- Troubleshot file-sharing access issues.
 
-### 3.3. DNS và Network Troubleshooting
-- Cấu hình DNS Server và DNS Forwarder.
-- Kiểm tra phân giải tên miền bằng `nslookup` và `Resolve-DnsName`.
-- Kiểm tra IP, Gateway và kết nối mạng.
-- Xử lý sự cố cấu hình DNS trên máy Client.
+### 3.3. DNS and Network Troubleshooting
+- Configured DNS Server and DNS Forwarders.
+- Tested name resolution using `nslookup` and `Resolve-DnsName`.
+- Verified IP configuration, default gateway, and network connectivity.
+- Troubleshot DNS configuration issues on the client workstation.
 
 ### 3.4. Group Policy (GPO)
-- Tạo và quản lý Group Policy Object.
-- Cấu hình User Configuration.
-- Thực hành giới hạn quyền truy cập Control Panel.
-- Kiểm tra OU Linking và Security Filtering.
-- Sử dụng `gpupdate` và `gpresult` để xử lý lỗi GPO.
+- Created and managed Group Policy Objects (GPOs).
+- Configured User Configuration policies.
+- Restricted access to Control Panel through Group Policy.
+- Troubleshot GPO issues related to OU linking and security filtering.
+- Used `gpupdate` and `gpresult` to verify and troubleshoot policy application.
 
 ### 3.5. Windows Event Viewer
-- Kiểm tra System và Application Logs.
-- Phân tích các sự kiện Error và Warning.
-- Sử dụng Event ID và thông tin sự kiện để hỗ trợ troubleshooting.
+- Reviewed System and Application logs.
+- Analyzed Error and Warning events.
+- Used Event IDs and event details to support troubleshooting.
 
 ### 3.6. PowerShell Helpdesk Toolkit
 
-Xây dựng các script PowerShell hỗ trợ kiểm tra và thu thập thông tin hệ thống.
+Developed PowerShell scripts to automate basic system checks and collect diagnostic information.
 
-| Script | Chức năng |
+| Script | Description |
 |---|---|
-| `System-Info.ps1` | Thu thập thông tin máy tính, hệ điều hành, RAM và ổ đĩa. |
-| `Network-Diagnostics.ps1` | Kiểm tra IP, DNS, kết nối mạng và SMB. |
-| `Service-Health.ps1` | Kiểm tra trạng thái các Windows Services. |
-| `EventLog-Analyzer.ps1` | Thu thập các sự kiện Error và Warning. |
-| `AD-User-Audit.ps1` | Kiểm tra trạng thái tài khoản Active Directory. |
-| `Helpdesk-Diagnostic.ps1` | Tổng hợp thông tin chẩn đoán hệ thống. |
+| `System-Info.ps1` | Collects computer, operating system, RAM, and disk information. |
+| `Network-Diagnostics.ps1` | Checks IP configuration, DNS, network connectivity, and SMB access. |
+| `Service-Health.ps1` | Checks the status of Windows services. |
+| `EventLog-Analyzer.ps1` | Collects Error and Warning events from Windows Event Logs. |
+| `AD-User-Audit.ps1` | Audits Active Directory user account status. |
+| `Helpdesk-Diagnostic.ps1` | Combines system diagnostic checks into a single report. |
 
-Các báo cáo được xuất ra định dạng CSV hoặc TXT để thuận tiện cho việc kiểm tra và lưu trữ.
+Diagnostic reports are exported in CSV or TXT format for easier review and record keeping.
 
-## 4. Công cụ và công nghệ
+## 4. Tools and Technologies
 
 - VMware Workstation
 - Windows Server 2022
 - Windows 11
-- Active Directory Domain Services
+- Active Directory Domain Services (AD DS)
 - DNS Server
 - Group Policy Management
 - SMB File Sharing
 - NTFS Permissions
-- RRAS NAT
+- Routing and Remote Access Service (RRAS) / NAT
 - Windows Event Viewer
 - Windows PowerShell
 
-## 5. Kết quả đạt được
+## 5. Key Outcomes
 
-Thông qua dự án, tôi đã thực hành:
-
-- Quản lý tài khoản và phân quyền trong môi trường Domain.
-- Cấu hình và xử lý sự cố DNS, mạng nội bộ.
-- Quản lý quyền truy cập thư mục chia sẻ.
-- Cấu hình và troubleshooting Group Policy.
-- Phân tích Windows Event Logs.
-- Viết PowerShell script hỗ trợ chẩn đoán hệ thống.
+- Managing user accounts and access permissions in a Windows domain environment.
+- Configuring and troubleshooting DNS and internal network connectivity.
+- Managing shared folder access and NTFS permissions.
+- Configuring and troubleshooting Group Policy.
+- Analyzing Windows Event Logs for troubleshooting.
+- Developing PowerShell scripts to automate basic system diagnostics.
